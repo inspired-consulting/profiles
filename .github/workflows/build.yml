@@ -22,5 +22,3 @@ jobs:
           context: .
           push: true
           tags: ghcr.io/inspired-consulting/profiles:latest
-          secrets: |
-            GIT_AUTH_TOKEN=${{ secrets.DOCKER_TOKEN }}
