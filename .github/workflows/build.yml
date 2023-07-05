@@ -21,6 +21,6 @@ jobs:
         with:
           context: .
           push: true
-          tags: user/app:latest
+          tags: ghcr.io/NAMESPACE/IMAGE_NAME:latest
           secrets: |
             GIT_AUTH_TOKEN=${{ secrets.DOCKER_TOKEN }}
