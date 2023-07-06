@@ -1,19 +1,32 @@
 
 # Two stage built
-# Image 1: Compiled image
+# Stage 1: Compiled image
 FROM node:19.7.0 as base
 
 WORKDIR /home/node/app
 
 COPY package*.json ./
+COPY tsconfig.json ./
 
-RUN npm i
+# Clean install
+RUN npm ci
 
 COPY . .
 
-# Image 2: Production/deploy image
-FROM base as production
+RUN npm run build
 
+
+# Stage 2: Production/deploy image
+FROM node:19.7.0-alpine as production
+
+WORKDIR /home/node/app
+
+ENV NODE_ENV=production
 ENV NODE_PATH=./dist
 
-RUN npm run dist
+COPY --from=base /home/node/app/package*.json ./
+COPY --from=base /home/node/app/dist ./dist
+
+RUN npm ci --production
+
+CMD ["node", "dist/app.js"]
