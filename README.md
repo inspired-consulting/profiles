@@ -8,18 +8,36 @@
 
 3. Open your terminal and navigate to the root directory of the app.
 
-## Run the app
+## Use the app
 
-Run the following command in your terminal to build and run the Docker container via docker compose:
+### Run the app
+
+Run the following command in your terminal to build and run the Docker container in the background (detached mode) via docker compose:
 
 ```bash
-docker compose up --build
+docker compose up -d --build
 ```
 
-Run the following command in your terminal to run the Docker container via docker compose:
+Run the following command in your terminal to run the Docker container in the background (detached mode) via docker compose:
   
   ```bash
-  docker compose up
+  docker compose up -d
   ```
 
 Open your browser and navigate to <http://localhost:9000>.
+
+### Stop the app
+
+Run the following command in your terminal to stop the Docker container via docker compose:
+
+```bash
+docker compose down
+```
+
+## Access the database
+
+Run the following command in your terminal to access the database via docker compose:
+
+```bash
+docker compose exec db psql -U postgres
+```

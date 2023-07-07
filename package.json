@@ -1,7 +1,8 @@
 {
-  "name": "profiles",
+  "name": "profiles app",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is an app to create user profiles and badges for our team.",
+  "type": "module",
   "main": "dist/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
