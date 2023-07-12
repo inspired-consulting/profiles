@@ -35,5 +35,5 @@ jobs:
           platforms: linux/amd64
           pull: true
           push: true
-          tags: ghcr.io/${{ github.repository }}/app:${{ github.sha }}
+          tags: ghcr.io/${{ github.repository }}-app:${{ github.sha }}
 
