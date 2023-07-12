@@ -1,4 +1,5 @@
-import express from 'express';
+import express, { Express, Request, Response } from 'express';
+import bodyParser from 'body-parser';
 import session from 'express-session';
 import path from 'path';
 import passport from 'passport';
@@ -34,6 +35,14 @@ class User {
   }
 }
 
+passport.serializeUser((user: User, done) => {
+  done(null, user.userId);
+});
+passport.deserializeUser((userId: string, done) => {
+  const user = users.find((u) => u.userId === userId);
+  done(null, user);
+});
+
 // Passport configuration
 passport.use(
   new MicrosoftStrategy(
@@ -54,39 +63,35 @@ const app = express();
 const port = 9000;
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
-// Authentication middleware
-app.use(passport.initialize());
-
-app.use(session({
+const expressSession = session({
   secret: 'very-secret-key',
   resave: false,
-  saveUninitialized: false
-}));
-passport.serializeUser((user: User, done) => {
-  done(null, user.userId);
+  saveUninitialized: false,
 });
-passport.deserializeUser((userId: string, done) => {
-  const user = users.find((u) => u.userId === userId);
-  done(null, user);
-});
+
+app.use(expressSession)
+
+// Authentication middleware
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Authentication routes
-app.get('/auth/microsoft', passport.authenticate('microsoft', { scope: ['user.read'], prompt: 'select_account' }));
+app.get('/auth/microsoft', 
+  passport.authenticate('microsoft', { 
+      scope: ['user.read'], 
+      prompt: 'select_account',
+      successReturnToOrRedirect: '/',
+      failureRedirect: '/login',
+      failureMessage: true,
+      keepSessionInfo: true 
+  }
+));
 
-app.get('/auth/microsoft/callback', passport.authenticate('microsoft', { failureRedirect: '/login' }), (req, res) => {
+app.get('/auth/microsoft/callback', 
+  passport.authenticate('microsoft', { failureRedirect: '/login' }), (req, res) => {
   // Route user to the dashboard after login:
   res.redirect('/dashboard.html');
 });
-
-// // Logout route
-// app.get('/logout', (req, res) => {
-//   req.logout();
-//   res.redirect('/');
-// });
-
-
-// Serve static files
-app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // Main route
 app.get('/', (req, res) => {
@@ -95,6 +100,17 @@ app.get('/', (req, res) => {
 app.get('/dashboard.html', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'public', 'html', 'dashboard.html'));
 });
+
+// Logout route
+app.post('/logout', (req: Request, res, next) => {
+  req.logout((err) => {
+    if (err) { return next(err); }
+    res.redirect('/');
+  });
+});
+
+// Serve static files
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // Start the server
 app.listen(port, () => {
