@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'public', 'html', 'index.html'));
 });
 
-router.get('/dashboard.html', (req, res) => {
+router.get('/dashboard', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '..', 'public', 'html', 'dashboard.html'));
 });
 

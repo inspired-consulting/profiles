@@ -16,7 +16,7 @@ router.get(
 );
 
 router.get('/microsoft/callback', passport.authenticate('microsoft', { failureRedirect: '/login' }), (req, res) => {
-  res.redirect('/dashboard.html');
+  res.redirect('/dashboard');
 });
 
 export default router;
