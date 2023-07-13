@@ -78,7 +78,7 @@ app.get('/dashboard.html', (req, res) => {
 app.post('/logout', (req: Request, res, next) => {
   req.logout((err) => {
     if (err) { return next(err); }
-    res.redirect('/');
+    res.redirect(`https://login.microsoftonline.com/${process.env.TENANT_ID}/oauth2/logout`);
   });
 });
 
