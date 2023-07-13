@@ -6,37 +6,8 @@ import session from 'express-session';
 import path from 'path';
 import passport from 'passport';
 import { Strategy as MicrosoftStrategy } from 'passport-microsoft';
-
-
-
-class User {
-  userId: string;
-  displayName: string;
-  mail: string;
-  userPrincipalName: string;
-
-  constructor(userId: string, displayName: string, mail: string, userPrincipalName: string) {
-    this.userId = userId;
-    this.displayName = displayName;
-    this.mail = mail;
-    this.userPrincipalName = userPrincipalName;
-  }
-}
-
-class UserStorage {
-  static users: User[] = [];
-
-  static findOrCreate(profile: any, done: any) {
-    let user = UserStorage.users.find(u => u.userId === profile.id);
-    if (user) {
-      done(null, user);
-    } else {
-      user = new User(profile.id, profile.displayName, profile.mail, profile.userPrincipalName);
-      UserStorage.users.push(user);
-      done(null, user);
-    }
-  }
-}
+import { User } from '../src/models/user';
+import { UserStorage } from '../src/models/userStorage';
 passport.serializeUser((user: User, done) => {
   done(null, user.userId);
 });
