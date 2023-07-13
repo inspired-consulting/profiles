@@ -1,9 +1,9 @@
-import { User } from './user';
+import { User } from "./user.js";
 
 export class UserStorage {
   static users: User[] = [];
 
-  static findOrCreate(profile: any, done: any) {
+  static findOrCreate(accessToken: any, refreshToken: any, profile: any, done: any) {
     let user = UserStorage.users.find(u => u.userId === profile.id);
     if (user) {
       done(null, user);

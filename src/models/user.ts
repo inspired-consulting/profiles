@@ -1,3 +1,11 @@
+declare global {
+  namespace Express {
+    interface User {
+      userId: string;
+    }
+  }
+}
+
 export class User {
   userId: string;
   displayName: string;
@@ -10,5 +18,6 @@ export class User {
     this.mail = mail;
     this.userPrincipalName = userPrincipalName;
   }
+
 }
 

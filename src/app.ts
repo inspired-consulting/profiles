@@ -6,9 +6,10 @@ import session from 'express-session';
 import path from 'path';
 import passport from 'passport';
 import { Strategy as MicrosoftStrategy } from 'passport-microsoft';
-import { User } from '../src/models/user';
-import { UserStorage } from '../src/models/userStorage';
-passport.serializeUser((user: User, done) => {
+import { User } from "./models/user.js";
+import { UserStorage } from "./models/userStorage.js";
+
+passport.serializeUser((user, done) => {
   done(null, user.userId);
 });
 passport.deserializeUser((userId: string, done) => {
