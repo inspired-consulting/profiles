@@ -1,14 +1,13 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import express, { Express, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import session from 'express-session';
 import path from 'path';
 import passport from 'passport';
 import { Strategy as MicrosoftStrategy } from 'passport-microsoft';
-import dotenv from 'dotenv';
-dotenv.config();
 
-//For in-memory storage:
-let users: User[] = [];
+
 
 class User {
   userId: string;
@@ -22,24 +21,27 @@ class User {
     this.mail = mail;
     this.userPrincipalName = userPrincipalName;
   }
+}
+
+class UserStorage {
+  static users: User[] = [];
 
   static findOrCreate(profile: any, done: any) {
-    let user = users.find(u => u.userId === profile.id);
+    let user = UserStorage.users.find(u => u.userId === profile.id);
     if (user) {
       done(null, user);
     } else {
       user = new User(profile.id, profile.displayName, profile.mail, profile.userPrincipalName);
-      users.push(user);
+      UserStorage.users.push(user);
       done(null, user);
     }
   }
 }
-
 passport.serializeUser((user: User, done) => {
   done(null, user.userId);
 });
 passport.deserializeUser((userId: string, done) => {
-  const user = users.find((u) => u.userId === userId);
+  const user = UserStorage.users.find((u) => u.userId === userId);
   done(null, user);
 });
 
@@ -47,16 +49,15 @@ passport.deserializeUser((userId: string, done) => {
 passport.use(
   new MicrosoftStrategy(
     {
-      clientID: process.env.CLIENT_ID,
-      clientSecret: process.env.CLIENT_SECRET,
+      clientID: process.env.CLIENT_ID!,
+      clientSecret: process.env.CLIENT_SECRET!,
       callbackURL: 'http://localhost:9000/auth/microsoft/callback',
       scope: ['user.read'],
     },
-    (accessToken, refreshToken, profile, done) => {
-      User.findOrCreate(profile, done);
-    }
+    UserStorage.findOrCreate
   )
 );
+
 
 // Express app setup
 const app = express();
@@ -76,18 +77,18 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Authentication routes
-app.get('/auth/microsoft', 
-  passport.authenticate('microsoft', { 
-      scope: ['user.read'], 
+app.get('/auth/microsoft',
+  passport.authenticate('microsoft', {
+      scope: ['user.read'],
       prompt: 'select_account',
       successReturnToOrRedirect: '/',
       failureRedirect: '/login',
       failureMessage: true,
-      keepSessionInfo: true 
+      keepSessionInfo: true
   }
 ));
 
-app.get('/auth/microsoft/callback', 
+app.get('/auth/microsoft/callback',
   passport.authenticate('microsoft', { failureRedirect: '/login' }), (req, res) => {
   // Route user to the dashboard after login:
   res.redirect('/dashboard.html');
