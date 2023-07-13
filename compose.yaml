@@ -6,6 +6,8 @@ services:
       dockerfile: Dockerfile
     environment:
       NODE_ENV: production
+    env_file:
+      - .env
     ports:
       - 9000:9000
     depends_on:

@@ -1,0 +1,98 @@
+/* Handwriting */
+@font-face {
+  font-family: 'Indie Flower';
+  src: url('../fonts/IndieFlower-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+/* Industrial looking font */
+@font-face {
+  font-family: 'Roboto Mono';
+  src: url('../fonts/RobotoMono-Medium.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Roboto Mono Light';
+  src: url('../fonts/RobotoMono-Light.ttf') format('truetype');
+  font-display: swap;
+}
+
+/* FONTS */
+@font-face {
+  font-family: 'Nexa Heavy';
+  src: url('../fonts/Nexa_Heavy.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Nexa Regular';
+  src: url('../fonts/Nexa_Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Nexa Text Light';
+  src: url('../fonts/Nexa_Text_Light.otf') format('opentype');
+}
+
+/*RESETS*/
+:root
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 62.5%;
+
+  --font-headings: 'Nexa Heavy', sans-serif;
+  --font-copy: 'Nexa Regular', sans-serif;
+  --font-light: 'Nexa Text Light', sans-serif;
+
+  --inspired-black: #080808; /* TO-DO: Look that value up */
+  --inspired-yellow: #F2C94C; /* TO-DO: Look that value up */
+}
+
+/* STRUCTURE */
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "credentials microsoft-auth";
+  height: 80vh;
+}
+
+#username-credentials {
+  grid-area: credentials;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--inspired-yellow);
+  background-color: var(--inspired-black);
+}
+
+#microsoft-passport {
+  grid-area: microsoft-auth;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--inspired-yellow);
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-headings);
+}
+
+h1 {
+  font-size: calc(3rem + 1vw);
+}
+
+h2 {
+  font-size: calc(2rem + 1vw);
+}
+
+p, input, button {
+  font-family: var(--font-copy);
+  font-size: calc(1.2rem + 0.5vw);
+}
+

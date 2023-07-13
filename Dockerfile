@@ -26,6 +26,7 @@ ENV NODE_PATH=./dist
 
 COPY --from=base /home/node/app/package*.json ./
 COPY --from=base /home/node/app/dist ./dist
+COPY --from=base /home/node/app/public ./public
 
 RUN npm ci --production
 
