@@ -1,0 +1,21 @@
+db/
+dist/
+  models/
+    user.js
+    userStorage.js
+  routes/
+    authRoutes.js
+    mainRoutes.js
+    logoutRoute.js
+  app.js
+node_modules/
+public/
+src/
+  models/
+    user.ts
+    userStorage.ts
+  routes/
+    authRoutes.ts
+    mainRoutes.ts
+    logoutRoute.ts
+  app.ts
