@@ -1,14 +1,19 @@
 import dotenv from 'dotenv';
 dotenv.config();
 import express, { Express, Request, Response } from 'express';
-import bodyParser from 'body-parser';
 import session from 'express-session';
 import path from 'path';
 import passport from 'passport';
 import { Strategy as MicrosoftStrategy } from 'passport-microsoft';
-import { User } from "./models/user.js";
 import { UserStorage } from "./models/userStorage.js";
 
+// Routes
+import mainRoutes from './routes/mainRoutes.js';
+import authRoutes from './routes/authRoutes.js';
+import logoutRoute from './routes/logoutRoute.js';
+
+
+// Serialization
 passport.serializeUser((user, done) => {
   done(null, user.userId);
 });
@@ -30,7 +35,6 @@ passport.use(
   )
 );
 
-
 // Express app setup
 const app = express();
 const port = 9000;
@@ -48,39 +52,14 @@ app.use(expressSession)
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Authentication routes
-app.get('/auth/microsoft',
-  passport.authenticate('microsoft', {
-      scope: ['user.read'],
-      prompt: 'select_account',
-      successReturnToOrRedirect: '/',
-      failureRedirect: '/login',
-      failureMessage: true,
-      keepSessionInfo: true
-  }
-));
+// Auth routes
+app.use('/auth', authRoutes);
 
-app.get('/auth/microsoft/callback',
-  passport.authenticate('microsoft', { failureRedirect: '/login' }), (req, res) => {
-  // Route user to the dashboard after login:
-  res.redirect('/dashboard.html');
-});
-
-// Main route
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'public', 'html', 'index.html'));
-});
-app.get('/dashboard.html', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'public', 'html', 'dashboard.html'));
-});
+// Main routes
+app.use(mainRoutes);
 
 // Logout route
-app.post('/logout', (req: Request, res, next) => {
-  req.logout((err) => {
-    if (err) { return next(err); }
-    res.redirect(`https://login.microsoftonline.com/${process.env.TENANT_ID}/oauth2/logout`);
-  });
-});
+app.use(logoutRoute);
 
 // Serve static files
 app.use(express.static(path.join(__dirname, '..', 'public')));

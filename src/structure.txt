@@ -3,6 +3,10 @@ dist/
   models/
     user.js
     userStorage.js
+  routes/
+    authRoutes.js
+    mainRoutes.js
+    logoutRoute.js
   app.js
 node_modules/
 public/
