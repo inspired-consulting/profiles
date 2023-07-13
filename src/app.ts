@@ -37,7 +37,7 @@ const port = 9000;
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 const expressSession = session({
-  secret: 'very-secret-key',
+  secret: process.env.SESSION_SECRET!,
   resave: false,
   saveUninitialized: false,
 });
