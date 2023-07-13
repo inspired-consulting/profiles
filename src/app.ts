@@ -28,7 +28,7 @@ passport.use(
     {
       clientID: process.env.CLIENT_ID!,
       clientSecret: process.env.CLIENT_SECRET!,
-      callbackURL: 'http://localhost:9000/auth/microsoft/callback',
+      callbackURL: process.env.CALLBACK_URL!,
       scope: ['user.read'],
     },
     UserStorage.findOrCreate
