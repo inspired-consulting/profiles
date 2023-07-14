@@ -4,3 +4,7 @@
 # security related
 db/password.txt
 .env
+
+# personal project properties
+.DS_Store
+/screenshots
