@@ -15,7 +15,7 @@
 }
 
 /*RESETS*/
-:root
+:root, html, body
 {
   margin: 0;
   padding: 0;
@@ -26,28 +26,32 @@
   --font-copy: 'Nexa Regular', sans-serif;
   --font-light: 'Nexa Text Light', sans-serif;
 
-  --inspired-black: #080808; /* TO-DO: Look that value up */
-  --inspired-yellow: #F2C94C; /* TO-DO: Look that value up */
+  --inspired-black: #3a3a3a;
+  --inspired-yellow: #e0b43b;
+  --inspired-white: #f6f6f6; /* TO-DO: Look that value up */
 }
 
 /* STRUCTURE */
 
 main {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(65%, 1fr) minmax(35%, 1fr);
   grid-template-rows: 1fr;
-  grid-template-areas: "credentials microsoft-auth";
+  grid-template-areas: "image-container microsoft-auth";
   height: 100vh;
 }
 
-#username-credentials {
-  grid-area: credentials;
+#image-container {
+  grid-area: image-container;
+  background-image: url('../images/view_cologne_office.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: var(--inspired-yellow);
-  background-color: var(--inspired-black);
+  color: var(--inspired-white);
 }
 
 #microsoft-passport {

@@ -1,40 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<title>Login Page</title>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="../css/main.css">
-    <script src="../js/main.js" defer></script>
-  </head>
+  <title>Login Page</title>
 
-  <body>
-    <main>
-      <!-- Authenticate via user credentials: -->
-      <article id="username-credentials">
-        <h2>Credentials</h2>
-        <p>Use your username and password to login.</p>
-        <form action="/login" method="post">
-          <label hidden for="username">Username</label>
-          <input type="text" name="username" id="username" placeholder="Your Username" required>
+  <link rel="stylesheet" href="../css/main.css">
+</head>
 
-          <label hidden for="password">Password</label>
-          <input type="password" name="password" id="password" placeholder="Your Password" required>
+<body>
+  <main>
+    <section id='image-container'>
+      <img src="../images/inspired_consulting.svg" alt="">
+    </section>
+    <!-- Authenticate via microsoft-passport: -->
+    <section id="microsoft-passport">
+      <form action="/auth/microsoft" method="get">
+        <button type="submit">Login with Microsoft</button>
+      </form>
+    </section>
+  </main>
+</body>
 
-          <button type="submit">Login</button>
-        </form>
-      </article>
-      <!-- Authenticate via microsoft-passport: -->
-      <article id="microsoft-passport">
-        <h2>Microsoft Passport</h2>
-        <p>Use your Microsoft account to login.</p>
-        <form action="/auth/microsoft" method="get">
-          <button type="submit">Login with Microsoft</button>
-        </form>
-      </article>
-    </main>
-  </body>
 </html>
-
