@@ -4,13 +4,8 @@
 # security related
 .env
 
-<<<<<<< Updated upstream
 # IDE related
 .DS_Store
 
-# personal files
-screenshots/
-=======
 # project properties
 .DS_Store
->>>>>>> Stashed changes
