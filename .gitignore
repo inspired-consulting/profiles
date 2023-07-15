@@ -2,9 +2,7 @@
 /node_modules
 
 # security related
-db/password.txt
 .env
 
-# personal project properties
+# IDE related
 .DS_Store
-/screenshots

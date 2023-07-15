@@ -1,7 +1,7 @@
 
 # Two stage built
 # Stage 1: Compiled image
-FROM node:19.7.0 as base
+FROM node:19.7.0 as build
 
 WORKDIR /home/node/app
 
@@ -24,9 +24,9 @@ WORKDIR /home/node/app
 ENV NODE_ENV=production
 ENV NODE_PATH=./dist
 
-COPY --from=base /home/node/app/package*.json ./
-COPY --from=base /home/node/app/dist ./dist
-COPY --from=base /home/node/app/public ./public
+COPY --from=build /home/node/app/package*.json ./
+COPY --from=build /home/node/app/dist ./dist
+COPY --from=build /home/node/app/public ./public
 
 RUN npm ci --production
 
