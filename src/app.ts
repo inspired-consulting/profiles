@@ -1,17 +1,19 @@
-import dotenv from 'dotenv';
-dotenv.config();
-import express, { Express, Request, Response } from 'express';
-import session from 'express-session';
-import path from 'path';
-import passport from 'passport';
-import { Strategy as MicrosoftStrategy } from 'passport-microsoft';
+import dotenv from "dotenv";
+import express, { Express, Request, Response } from "express";
+import session from "express-session";
+import path from "path";
+import passport from "passport";
+import { Strategy as MicrosoftStrategy } from "passport-microsoft";
 import { UserStorage } from "./models/userStorage.js";
+import { setupDatabase } from "./database.js";
+
+dotenv.config();
+setupDatabase();
 
 // Routes
-import mainRoutes from './routes/mainRoutes.js';
-import authRoutes from './routes/authRoutes.js';
-import logoutRoute from './routes/logoutRoute.js';
-
+import mainRoutes from "./routes/mainRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
+import logoutRoute from "./routes/logoutRoute.js";
 
 // Serialization
 passport.serializeUser((user, done) => {
@@ -29,7 +31,7 @@ passport.use(
       clientID: process.env.CLIENT_ID!,
       clientSecret: process.env.CLIENT_SECRET!,
       callbackURL: process.env.CALLBACK_URL!,
-      scope: ['user.read'],
+      scope: ["user.read"],
     },
     UserStorage.findOrCreate
   )
@@ -46,14 +48,14 @@ const expressSession = session({
   saveUninitialized: false,
 });
 
-app.use(expressSession)
+app.use(expressSession);
 
 // Authentication middleware
 app.use(passport.initialize());
 app.use(passport.session());
 
 // Auth routes
-app.use('/auth', authRoutes);
+app.use("/auth", authRoutes);
 
 // Main routes
 app.use(mainRoutes);
@@ -62,7 +64,7 @@ app.use(mainRoutes);
 app.use(logoutRoute);
 
 // Serve static files
-app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(express.static(path.join(__dirname, "..", "public")));
 
 // Start the server
 app.listen(port, () => {

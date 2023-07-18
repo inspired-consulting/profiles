@@ -1,5 +1,6 @@
-db/
 dist/
+  db
+    migrations/
   models/
     user.js
     userStorage.js
@@ -19,3 +20,7 @@ src/
     mainRoutes.ts
     logoutRoute.ts
   app.ts
+compose.yaml
+Dockerfile
+knexfile.js
+wait-for-services.sh
