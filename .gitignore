@@ -1,8 +1,11 @@
 /dist
 /node_modules
 
-# security related
+# security
 .env
 
-# IDE related
+# IDE
 .DS_Store
+
+# database
+pg-migrate.json

@@ -19,10 +19,10 @@ docker compose up -d --build
 ```
 
 Run the following command in your terminal to run the Docker container in the background (detached mode) via docker compose:
-  
-  ```bash
-  docker compose up -d
-  ```
+
+```bash
+docker compose up -d
+```
 
 Open your browser and navigate to <http://localhost:9000>.
 
@@ -39,5 +39,13 @@ docker compose down
 Run the following command in your terminal to access the database via docker compose:
 
 ```bash
-docker compose exec db psql -U postgres
+docker compose exec -ti db psql -U postgres -d profiles_db
+```
+
+## Access the app container
+
+Run the following command in your terminal to access the app container:
+
+```bash
+docker exec -it profiles-server /bin/sh
 ```
