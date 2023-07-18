@@ -34,10 +34,10 @@ services:
       context: .
       dockerfile: Dockerfile
     depends_on:
-      - db
+      - server
     env_file:
       - .env
-    command: sh -c "chmod +x ./wait-for-services.sh && npx knex migrate:latest --knexfile=./knexfile.js"
+    command: sh -c "npx knex migrate:latest --knexfile=./knexfile.js"
     volumes:
       - ./knexfile.js:/home/node/app/knexfile.js
       - ./db:/home/node/app/db
