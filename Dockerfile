@@ -29,7 +29,6 @@ COPY --from=build /home/node/app/dist ./dist
 COPY --from=build /home/node/app/public ./public
 COPY --from=build /home/node/app/db/migrations ./db/migrations
 COPY --from=build /home/node/app/knexfile.js ./
-COPY --from=build /home/node/app/wait-for-services.sh ./
 
 RUN npm ci --production
 
