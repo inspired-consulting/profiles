@@ -1,5 +1,5 @@
 import pkg from 'knex';
-const { Knex } = pkg;
+const { knex } = pkg;
 
 const knexConfig = {
   client: 'pg',

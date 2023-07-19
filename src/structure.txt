@@ -20,6 +20,8 @@ src/
     mainRoutes.ts
     logoutRoute.ts
   app.ts
+  database.ts
+  insertOrUpdateUser.ts
 compose.yaml
 Dockerfile
 knexfile.js
