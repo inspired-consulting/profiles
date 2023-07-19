@@ -17,7 +17,7 @@ export class UserStorage {
     if (user) {
       done(null, user);
     } else {
-      user = new User(id, displayName, mail, givenName, surname);
+      user = new User(id, displayName, mail, givenName, surname, false);
       UserStorage.users.push(user);
       done(null, user);
     }

@@ -57,12 +57,6 @@ app.use(passport.session());
 // Auth routes
 app.use("/auth", authRoutes);
 
-// Route to print user data to the console
-app.get("/user", (req: Request, res: Response) => {
-  console.log(req.user);
-  res.send(req.user);
-});
-
 // Main routes
 app.use(mainRoutes);
 
