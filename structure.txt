@@ -1,0 +1,35 @@
+dist/
+  db
+    migrations/
+  models/
+    user.js
+    userStorage.js
+  routes/
+    authRoutes.js
+    mainRoutes.js
+    logoutRoute.js
+  app.js
+node_modules/
+public/
+  css/
+  fonts/
+  images/
+src/
+  models/
+    user.ts
+    userStorage.ts
+  routes/
+    authRoutes.ts
+    mainRoutes.ts
+    logoutRoute.ts
+  app.ts
+  database.ts
+  insertOrUpdateUser.ts
+views/
+  dashboard.ejs
+  index.ejs
+  profile.ejs
+compose.yaml
+Dockerfile
+knexfile.js
+wait-for-services.sh
