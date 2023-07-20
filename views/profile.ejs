@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>User Profile</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/css/profile.css">
+  </head>
+
+  <body>
+    <header>
+      <h1>Welcome, <%= authenticatedUser.displayName %>!</h1>
+
+      <a href="/dashboard">Dashboard</a>
+      
+    </header>
+    <main>
+      <p>User ID: <%= authenticatedUser.userId %></p>
+      <p>Email: <%= authenticatedUser.mail %></p>
+      <p>First Name: <%= authenticatedUser.givenName %></p>
+      <p>Last Name: <%= authenticatedUser.surname %></p>
+      <% if (authenticatedUser.is_admin) { %>
+        <p>You are an admin.</p>
+      <% } else { %>
+        <p>You are not an admin.</p>
+      <% } %>
+    </main>
+    <footer>
+      <p> Created by the badge people.</p>
+    </footer>
+  </body>
+
+</html>

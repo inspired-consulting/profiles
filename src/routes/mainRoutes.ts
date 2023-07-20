@@ -21,4 +21,14 @@ router.get("/dashboard", async (req, res) => {
   }
 });
 
+router.get("/profile", (req, res) => {
+  if (!req.isAuthenticated()) {
+    res.redirect("/");
+  } else {
+    const authenticatedUser = req.user;
+    res.render("profile", { authenticatedUser });
+    console.log(authenticatedUser);
+  }
+});
+
 export default router;

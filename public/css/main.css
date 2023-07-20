@@ -76,7 +76,7 @@ h2 {
   font-size: calc(2rem + 1vw);
 }
 
-p, input, button {
+p, input, button, a {
   font-family: var(--font-copy);
   font-size: calc(1.2rem + 0.5vw);
 }

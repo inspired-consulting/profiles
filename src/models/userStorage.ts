@@ -12,7 +12,7 @@ export class UserStorage {
     let user = UserStorage.users.find((u) => u.userId === profile.id);
     const { id, displayName, mail, givenName, surname } = profile._json;
 
-    // console.log("Microsoft Profile Data:", profile);
+    console.log("Microsoft Profile Data:", profile);
 
     if (user) {
       done(null, user);
