@@ -33,7 +33,7 @@ passport.use(
       callbackURL: process.env.CALLBACK_URL!,
       scope: ["user.read"],
     },
-    UserStorage.findOrCreate
+    UserStorage.findOrCreateMicrosoft
   )
 );
 

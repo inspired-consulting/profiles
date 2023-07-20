@@ -3,7 +3,7 @@ import { User } from "./user.js";
 export class UserStorage {
   static users: User[] = [];
 
-  static async findOrCreate(
+  static findOrCreateMicrosoft(
     accessToken: any,
     refreshToken: any,
     profile: any,
@@ -17,21 +17,10 @@ export class UserStorage {
     if (user) {
       done(null, user);
     } else {
-      // let picture = "../../public/images/cologne_cathedral.jpeg";
-      let picture: string = "";
-
-      if (typeof accessToken === "string") {
-        picture = await getProfilePicture(accessToken);
-      }
-      user = new User(
-        id,
-        displayName,
-        mail,
-        givenName,
-        surname,
-        false,
-        picture
-      );
+      user = new User(id, displayName, mail)
+        .withName(givenName, surname)
+        .withAdminStatus(false)
+        .withProvider("Microsoft");
       UserStorage.users.push(user);
       done(null, user);
     }

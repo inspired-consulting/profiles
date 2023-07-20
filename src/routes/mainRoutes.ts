@@ -14,7 +14,7 @@ router.get("/dashboard", async (req, res) => {
     const authenticatedUser = req.user;
     if (authenticatedUser) {
       res.render("dashboard");
-      await insertOrUpdateUser(req);
+      await insertOrUpdateUser(req.user);
     }
   } else {
     res.redirect("/");

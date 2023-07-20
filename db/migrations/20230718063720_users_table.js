@@ -7,7 +7,7 @@ export const up = async (knex) => {
 
   await knex.schema.createTable('users', (table) => {
     table.uuid('id').defaultTo(knex.raw('uuid_generate_v4()')).primary();
-    table.uuid('user_id').notNullable().defaultTo(knex.raw('uuid_generate_v4()')).unique();
+    table.uuid('user_id').notNullable().defaultTo(knex.raw('uuid_generate_v4()'));
     table.string('provider').notNullable();
     table.string('email').notNullable();
     table.string('firstname').notNullable();
