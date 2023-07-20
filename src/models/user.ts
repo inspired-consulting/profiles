@@ -7,6 +7,7 @@ declare global {
       givenName: string;
       surname: string;
       is_admin: boolean;
+      picture: string;
     }
   }
 }
@@ -18,6 +19,7 @@ export class User {
   givenName: string;
   surname: string;
   is_admin: boolean;
+  picture: string;
 
   constructor(
     userId: string,
@@ -25,7 +27,8 @@ export class User {
     mail: string,
     givenName: string,
     surname: string,
-    is_admin: boolean
+    is_admin: boolean,
+    picture: string
   ) {
     this.userId = userId;
     this.displayName = displayName;
@@ -33,5 +36,6 @@ export class User {
     this.givenName = givenName;
     this.surname = surname;
     this.is_admin = is_admin;
+    this.picture = picture;
   }
 }

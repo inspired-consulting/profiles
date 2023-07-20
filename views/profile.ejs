@@ -18,15 +18,22 @@
       
     </header>
     <main>
-      <p>User ID: <%= authenticatedUser.userId %></p>
-      <p>Email: <%= authenticatedUser.mail %></p>
-      <p>First Name: <%= authenticatedUser.givenName %></p>
-      <p>Last Name: <%= authenticatedUser.surname %></p>
-      <% if (authenticatedUser.is_admin) { %>
-        <p>You are an admin.</p>
-      <% } else { %>
-        <p>You are not an admin.</p>
-      <% } %>
+      <img src="<%= authenticatedUser.picture %>" alt="Profile Picture">
+      <section>
+        <h2>Profile</h2>
+        <form action="/profile" method="get">
+          <img src="<%= authenticatedUser.picture %>" alt="Profile Picture">
+          <p>User ID: <%= authenticatedUser.userId %></p>
+          <p>Email: <%= authenticatedUser.mail %></p>
+          <p>First Name: <%= authenticatedUser.givenName %></p>
+          <p>Last Name: <%= authenticatedUser.surname %></p>
+          <% if (authenticatedUser.is_admin) { %>
+            <p>You are an admin.</p>
+          <% } else { %>
+            <p>You are not an admin.</p>
+          <% } %>
+        </form>
+        </section>
     </main>
     <footer>
       <p> Created by the badge people.</p>
