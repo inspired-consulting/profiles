@@ -14,8 +14,7 @@ const database = knex({
   },
 });
 
-export async function insertOrUpdateUser(req: Request) {
-  const authenticatedUser = req.user;
+export async function insertOrUpdateUser(authenticatedUser: Express.User) {
   if (authenticatedUser) {
     const adminUserIds = process.env.ADMIN_USERS?.split(",") || [];
     const isAdmin = adminUserIds.includes(authenticatedUser.userId);
@@ -30,7 +29,7 @@ export async function insertOrUpdateUser(req: Request) {
           email: authenticatedUser.mail,
           firstname: authenticatedUser.givenName,
           lastname: authenticatedUser.surname,
-          is_admin: isAdmin ? "yes" : "no",
+          is_admin: isAdmin ? true : false,
         })
         .onConflict("user_id")
         .merge();

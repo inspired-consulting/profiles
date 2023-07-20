@@ -18,7 +18,7 @@ router.get("/dashboard", async (req, res) => {
       res.sendFile(
         path.join(__dirname, "..", "..", "public", "html", "dashboard.html")
       );
-      await insertOrUpdateUser(req);
+      await insertOrUpdateUser(req.user);
     }
   } else {
     res.redirect("/");
