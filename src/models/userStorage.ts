@@ -3,7 +3,7 @@ import { User } from "./user.js";
 export class UserStorage {
   static users: User[] = [];
 
-  static findOrCreate(
+  static findOrCreateMicrosoft(
     accessToken: any,
     refreshToken: any,
     profile: any,
@@ -17,7 +17,10 @@ export class UserStorage {
     if (user) {
       done(null, user);
     } else {
-      user = new User(id, displayName, mail, givenName, surname, false);
+      user = new User(id, displayName, mail)
+        .withName(givenName, surname)
+        .withAdminStatus(false)
+        .withProvider("Microsoft");
       UserStorage.users.push(user);
       done(null, user);
     }
