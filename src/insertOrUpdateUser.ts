@@ -34,9 +34,14 @@ export async function insertOrUpdateUser(req: Request) {
         })
         .onConflict("user_id")
         .merge();
-      console.log("User inserted into the database");
+      console.log(
+        `User with id ${authenticatedUser.userId} inserted into the database`
+      );
     } catch (error) {
-      console.error("Error inserting user into the database:", error);
+      console.error(
+        `Error inserting user with id ${authenticatedUser.userId} into the database:`,
+        error
+      );
     }
   }
 }
