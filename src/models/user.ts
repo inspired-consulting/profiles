@@ -4,6 +4,7 @@ declare global {
       userId: string;
       displayName: string;
       mail: string;
+      accessToken: string;
       givenName: string;
       surname: string;
       is_admin: boolean;
@@ -17,6 +18,7 @@ export class User {
   userId: string;
   displayName: string;
   mail: string;
+  accessToken: string = "";
   givenName: string = "";
   surname: string = "";
   is_admin: boolean = false;

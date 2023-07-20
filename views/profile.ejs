@@ -18,11 +18,9 @@
       
     </header>
     <main>
-      <img src="<%= authenticatedUser.picture %>" alt="Profile Picture">
-      <section>
         <h2>Profile</h2>
         <form action="/profile" method="get">
-          <img src="<%= authenticatedUser.picture %>" alt="Profile Picture">
+          <img src="<%= authenticatedUser.picture %>" alt="">
           <p>User ID: <%= authenticatedUser.userId %></p>
           <p>Email: <%= authenticatedUser.mail %></p>
           <p>First Name: <%= authenticatedUser.givenName %></p>
@@ -33,7 +31,6 @@
             <p>You are not an admin.</p>
           <% } %>
         </form>
-        </section>
     </main>
     <footer>
       <p> Created by the badge people.</p>

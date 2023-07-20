@@ -1,9 +1,10 @@
 import { User } from "./user.js";
+import fetch from "node-fetch";
 
 export class UserStorage {
   static users: User[] = [];
 
-  static findOrCreateMicrosoft(
+  static async findOrCreateMicrosoft(
     accessToken: any,
     refreshToken: any,
     profile: any,
@@ -13,23 +14,28 @@ export class UserStorage {
     const { id, displayName, mail, givenName, surname } = profile._json;
 
     console.log("Microsoft Profile Data:", profile);
+    console.log("AccessToken, in findOrCreateMicrosoft:", accessToken);
 
     if (user) {
       done(null, user);
     } else {
+      const picture = await getProfilePicture(accessToken);
       user = new User(id, displayName, mail)
         .withName(givenName, surname)
         .withAdminStatus(false)
-        .withProvider("Microsoft");
+        .withProvider("Microsoft")
+        .withPicture(picture);
       UserStorage.users.push(user);
       done(null, user);
     }
   }
 }
 
-async function getProfilePicture(accessToken: string): Promise<string> {
+export async function getProfilePicture(accessToken: string): Promise<string> {
+  console.log(`The access token: ${accessToken}`);
   try {
     const url = "https://graph.microsoft.com/v1.0/me/photo/$value";
+    console.log(`The access token, in getProfilePicture: ${accessToken}`);
     const response = await fetch(url, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -40,28 +46,16 @@ async function getProfilePicture(accessToken: string): Promise<string> {
       throw new Error(`Failed to fetch profile picture: ${response.status}`);
     }
 
-    const blob = await response.blob();
+    const buffer = await response.buffer();
 
-    if (blob.size === 0) {
-      // If the picture is not available, return an empty string
+    if (buffer.byteLength === 0) {
       return "";
     }
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
+    const dataURL = `data:image/jpeg;base64,${buffer.toString("base64")}`;
 
-      reader.onloadend = function () {
-        const dataURL = reader.result as string;
-        resolve(dataURL);
-      };
-
-      reader.onerror = function () {
-        reject(new Error("Error reading the profile picture"));
-      };
-
-      reader.readAsDataURL(blob);
-    });
+    return dataURL;
   } catch (error) {
     console.error("Error fetching profile picture:", error);
-    return ""; // Return an empty string or a default profile picture URL in case of an error
+    return "
   }
 }
