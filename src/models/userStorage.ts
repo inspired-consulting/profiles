@@ -13,9 +13,6 @@ export class UserStorage {
     let user = UserStorage.users.find((u) => u.userId === profile.id);
     const { id, displayName, mail, givenName, surname } = profile._json;
 
-    console.log("Microsoft Profile Data:", profile);
-    console.log("AccessToken, in findOrCreateMicrosoft:", accessToken);
-
     if (user) {
       done(null, user);
     } else {
@@ -35,7 +32,6 @@ export async function getProfilePicture(accessToken: string): Promise<string> {
   console.log(`The access token: ${accessToken}`);
   try {
     const url = "https://graph.microsoft.com/v1.0/me/photo/$value";
-    console.log(`The access token, in getProfilePicture: ${accessToken}`);
     const response = await fetch(url, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -46,16 +42,19 @@ export async function getProfilePicture(accessToken: string): Promise<string> {
       throw new Error(`Failed to fetch profile picture: ${response.status}`);
     }
 
-    const buffer = await response.buffer();
+    const arrayBuffer = await response.arrayBuffer();
 
-    if (buffer.byteLength === 0) {
+    if (arrayBuffer.byteLength === 0) {
       return "";
     }
+
+    const buffer = Buffer.from(arrayBuffer);
+
     const dataURL = `data:image/jpeg;base64,${buffer.toString("base64")}`;
 
     return dataURL;
   } catch (error) {
     console.error("Error fetching profile picture:", error);
-    return "
+    return "../../public/images/inspired_consulting.svg";
   }
 }
