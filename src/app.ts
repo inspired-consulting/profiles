@@ -66,6 +66,9 @@ app.use(logoutRoute);
 // Serve static files
 app.use(express.static(path.join(__dirname, "..", "public")));
 
+// View engine setup
+app.set("view engine", "ejs");
+
 // Start the server
 app.listen(port, () => {
   console.log(`Express is listening at http://localhost:${port}`);

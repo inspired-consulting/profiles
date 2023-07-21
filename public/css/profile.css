@@ -1,0 +1,41 @@
+@import url("main.css");
+
+/* STRUCTURE */
+/* Overall structure */
+
+body {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 10% 80% 10%;
+  grid-template-areas: "header" "main" "footer";
+}
+
+header {
+  grid-area: header;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+main {
+  grid-area: main;
+}
+
+footer {
+  grid-area: footer;
+}
+
+
+/* Sub structure */
+
+form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(4rem + 1vw);
+}
+
+#profile-picture {
+  height: calc(20rem + 1vw);
+  border-radius: 50%;
+}

@@ -1,0 +1,40 @@
+@import url("main.css");
+
+
+/* STRUCTURE */
+
+main {
+  display: grid;
+  grid-template-columns: minmax(65%, 1fr) minmax(35%, 1fr);
+  grid-template-rows: 1fr;
+  grid-template-areas: "image-container microsoft-auth";
+  height: 100vh;
+}
+
+#image-container {
+  grid-area: image-container;
+  background-image: url('/images/cologne_cathedral.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--inspired-white);
+}
+
+#microsoft-passport {
+  grid-area: microsoft-auth;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--inspired-yellow);
+}
+
+/* GENERAL */
+
+body {
+  padding: 0;
+}

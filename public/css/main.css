@@ -1,4 +1,7 @@
+/* MAIN SYTLESHEET AS BASIS*/
+
 /* FONTS */
+
 @font-face {
   font-family: 'Nexa Heavy';
   src: url('../fonts/Nexa_Heavy.otf') format('opentype');
@@ -14,7 +17,9 @@
   src: url('../fonts/Nexa_Text_Light.otf') format('opentype');
 }
 
+
 /*RESETS*/
+
 :root, html, body
 {
   margin: 0;
@@ -31,38 +36,8 @@
   --inspired-white: #f6f6f6; /* TO-DO: Look that value up */
 }
 
-/* STRUCTURE */
 
-main {
-  display: grid;
-  grid-template-columns: minmax(65%, 1fr) minmax(35%, 1fr);
-  grid-template-rows: 1fr;
-  grid-template-areas: "image-container microsoft-auth";
-  height: 100vh;
-}
-
-#image-container {
-  grid-area: image-container;
-  background-image: url('/images/cologne_cathedral.jpeg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: var(--inspired-white);
-}
-
-#microsoft-passport {
-  grid-area: microsoft-auth;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--inspired-yellow);
-}
-
+/* HEADINGS */
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-headings);
@@ -76,8 +51,19 @@ h2 {
   font-size: calc(2rem + 1vw);
 }
 
-p, input, button {
+p, input, button, a {
   font-family: var(--font-copy);
-  font-size: calc(1.2rem + 0.5vw);
+  font-size: calc(1.2rem + 1vw);
 }
 
+button {
+  padding: 0.2rem calc(0.5rem + 1vw);
+  border-radius: calc(0.2rem + 0.7vw);
+}
+
+
+/* GENERAL */
+
+body {
+  padding: 5rem;
+}

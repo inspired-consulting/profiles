@@ -11,6 +11,9 @@ dist/
   app.js
 node_modules/
 public/
+  css/
+  fonts/
+  images/
 src/
   models/
     user.ts
@@ -22,6 +25,10 @@ src/
   app.ts
   database.ts
   insertOrUpdateUser.ts
+views/
+  dashboard.ejs
+  index.ejs
+  profile.ejs
 compose.yaml
 Dockerfile
 knexfile.js

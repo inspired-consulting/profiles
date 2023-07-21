@@ -4,9 +4,12 @@ declare global {
       userId: string;
       displayName: string;
       mail: string;
+      accessToken: string;
       givenName: string;
       surname: string;
       is_admin: boolean;
+      provider: string;
+      picture: string;
     }
   }
 }
@@ -15,10 +18,12 @@ export class User {
   userId: string;
   displayName: string;
   mail: string;
+  accessToken: string = "";
   givenName: string = "";
   surname: string = "";
   is_admin: boolean = false;
   provider: string = "";
+  picture: string = "";
   constructor(userId: string, displayName: string, mail: string) {
     this.userId = userId;
     this.displayName = displayName;
@@ -38,6 +43,11 @@ export class User {
 
   public withProvider(provider: string): User {
     this.provider = provider;
+    return this;
+  }
+
+  public withPicture(picture: string): User {
+    this.picture = picture;
     return this;
   }
 }
