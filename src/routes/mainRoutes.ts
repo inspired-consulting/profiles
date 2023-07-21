@@ -45,6 +45,15 @@ router.get("/images/:userId", (req, res) => {
     "images",
     `${userId}.jpeg`
   );
+
+  if (fs.existsSync(filePath)) {
+    const maxAgeInSeconds = 1800;
+    res.setHeader("Cache-Control", `public, max-age=${maxAgeInSeconds}`);
+
+    res.sendFile(filePath);
+  } else {
+    res.sendStatus(404);
+  }
 });
 
 export default router;
