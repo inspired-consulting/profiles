@@ -16,7 +16,10 @@ router.get("/dashboard", async (req, res) => {
     if (authenticatedUser) {
       res.render("dashboard");
       await insertOrUpdateUser(req.user);
-      await getProfilePicture(authenticatedUser.accessToken);
+      await getProfilePicture(
+        authenticatedUser.userId,
+        authenticatedUser.accessToken
+      );
     }
   } else {
     res.redirect("/");

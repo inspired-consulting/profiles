@@ -6,7 +6,7 @@ import passport from "passport";
 import { Strategy as MicrosoftStrategy } from "passport-microsoft";
 import { UserStorage } from "./models/userStorage.js";
 import { setupDatabase } from "./database.js";
-import { createCacheFolders } from "./cacheHandler.js";
+import { createCacheFolders } from "./utils.js";
 
 dotenv.config();
 setupDatabase();

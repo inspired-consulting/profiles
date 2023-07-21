@@ -10,5 +10,6 @@
 # database
 pg-migrate.json
 
-# profile images
-chache/
+# cache folder
+/cache/
+```
