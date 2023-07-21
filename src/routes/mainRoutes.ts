@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
 import path from "path";
+import fs from "fs";
 import { insertOrUpdateUser } from "../insertOrUpdateUser.js";
 import { getProfilePicture } from "../models/userStorage.js";
 
@@ -33,6 +34,17 @@ router.get("/profile", (req, res) => {
     const authenticatedUser = req.user;
     res.render("profile", { authenticatedUser });
   }
+});
+router.get("/images/:userId", (req, res) => {
+  const userId = req.params.userId;
+  const filePath = path.join(
+    __dirname,
+    "..",
+    "..",
+    "cache",
+    "images",
+    `${userId}.jpeg`
+  );
 });
 
 export default router;
