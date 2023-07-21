@@ -29,7 +29,6 @@ router.get("/profile", (req, res) => {
   } else {
     const authenticatedUser = req.user;
     res.render("profile", { authenticatedUser });
-    console.log(authenticatedUser);
   }
 });
 

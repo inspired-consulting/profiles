@@ -30,31 +30,36 @@ export class UserStorage {
 
 export async function getProfilePicture(accessToken: string): Promise<string> {
   console.log(`The access token: ${accessToken}`);
-  try {
-    const url = "https://graph.microsoft.com/v1.0/me/photo/$value";
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch profile picture: ${response.status}`);
+  if (accessToken) {
+    try {
+      const url = "https://graph.microsoft.com/v1.0/me/photo/$value";
+      const response = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch profile picture: ${response.status}`);
+      }
+
+      const arrayBuffer = await response.arrayBuffer();
+
+      if (arrayBuffer.byteLength === 0) {
+        return "";
+      }
+
+      const buffer = Buffer.from(arrayBuffer);
+
+      const dataURL = `data:image/jpeg;base64,${buffer.toString("base64")}`;
+
+      return dataURL;
+    } catch (error) {
+      console.error("Error fetching profile picture:", error);
+      return "../../public/images/inspired_consulting.svg";
     }
-
-    const arrayBuffer = await response.arrayBuffer();
-
-    if (arrayBuffer.byteLength === 0) {
-      return "";
-    }
-
-    const buffer = Buffer.from(arrayBuffer);
-
-    const dataURL = `data:image/jpeg;base64,${buffer.toString("base64")}`;
-
-    return dataURL;
-  } catch (error) {
-    console.error("Error fetching profile picture:", error);
+  } else {
     return "../../public/images/inspired_consulting.svg";
   }
 }
