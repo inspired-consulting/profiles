@@ -6,7 +6,6 @@
 
 		<title>User Profile</title>
 
-    <link rel="stylesheet" type="text/css" href="/css/main.css">
     <link rel="stylesheet" type="text/css" href="/css/profile.css">
   </head>
 
@@ -18,16 +17,18 @@
     <main>
         <h2>Profile</h2>
         <form action="/profile" method="get">
-          <img src="<%= authenticatedUser.picture %>" alt="">
-          <p>User ID: <%= authenticatedUser.userId %></p>
-          <p>Email: <%= authenticatedUser.mail %></p>
-          <p>First Name: <%= authenticatedUser.givenName %></p>
-          <p>Last Name: <%= authenticatedUser.surname %></p>
-          <% if (authenticatedUser.is_admin) { %>
-            <p>You are an admin.</p>
-          <% } else { %>
-            <p>You are not an admin.</p>
-          <% } %>
+          <img id="profile-picture" src="<%= authenticatedUser.picture %>" alt="">
+          <section id="profile-data">
+            <p>User ID: <%= authenticatedUser.userId %></p>
+            <p>Email: <%= authenticatedUser.mail %></p>
+            <p>First Name: <%= authenticatedUser.givenName %></p>
+            <p>Last Name: <%= authenticatedUser.surname %></p>
+            <% if (authenticatedUser.is_admin) { %>
+              <p>You are an admin.</p>
+            <% } else { %>
+              <p>You are not an admin.</p>
+            <% } %>
+          </section>
         </form>
     </main>
     <footer>
