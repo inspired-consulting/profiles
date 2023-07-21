@@ -6,9 +6,12 @@ import passport from "passport";
 import { Strategy as MicrosoftStrategy } from "passport-microsoft";
 import { UserStorage } from "./models/userStorage.js";
 import { setupDatabase } from "./database.js";
+import { createCacheFolders } from "./cacheHandler.js";
 
 dotenv.config();
 setupDatabase();
+
+createCacheFolders();
 
 // Routes
 import mainRoutes from "./routes/mainRoutes.js";

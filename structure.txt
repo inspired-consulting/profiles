@@ -1,6 +1,8 @@
+cache/
+  images/
+db/
+  migrations/
 dist/
-  db
-    migrations/
   models/
     user.js
     userStorage.js
@@ -32,4 +34,3 @@ views/
 compose.yaml
 Dockerfile
 knexfile.js
-wait-for-services.sh

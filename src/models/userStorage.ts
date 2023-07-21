@@ -1,5 +1,7 @@
 import { User } from "./user.js";
 import fetch from "node-fetch";
+import fs from "fs";
+import path from "path";
 
 export class UserStorage {
   static users: User[] = [];
@@ -29,7 +31,7 @@ export class UserStorage {
 }
 
 export async function getProfilePicture(accessToken: string): Promise<string> {
-  console.log(`The access token: ${accessToken}`);
+  // console.log(`The access token: ${accessToken}`);
 
   if (accessToken) {
     try {
