@@ -1,10 +1,14 @@
 import { Router, Request, Response } from "express";
 import path from "path";
+import dotenv from "dotenv";
+dotenv.config();
 import { insertOrUpdateUser } from "../insertOrUpdateUser.js";
 import { getProfilePicture } from "../models/userStorage.js";
 import { serveCachedImage } from "../utils.js";
 const router = Router();
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
+const isDevelopment = process.env.NODE_ENV === "development";
 
 router.get("/", (req, res) => {
   res.render("index");
@@ -33,7 +37,7 @@ router.get("/profile", (req, res) => {
     res.redirect("/");
   } else {
     const authenticatedUser = req.user;
-    const cacheBuster = Date.now();
+    const cacheBuster = isDevelopment ? Date.now() : "";
     res.render("profile", { authenticatedUser, cacheBuster });
   }
 });

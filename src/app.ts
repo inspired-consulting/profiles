@@ -69,17 +69,6 @@ app.use(logoutRoute);
 // Serve static files
 app.use(express.static(path.join(__dirname, "..", "public")));
 
-// Serve cached images
-app.use(
-  "/cache/images",
-  express.static(path.join(__dirname, "..", "cache", "images"))
-);
-
-app.use(
-  "/cache/thumbnails",
-  express.static(path.join(__dirname, "..", "cache", "thumbnails"))
-);
-
 // View engine setup
 app.set("view engine", "ejs");
 

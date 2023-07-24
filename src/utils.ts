@@ -2,23 +2,25 @@ import fs from "fs";
 import path from "path";
 import sharp from "sharp";
 
+import config from "../config.js";
+
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 const cacheFolderPath = path.join(__dirname, "..", "cache");
 const cacheImagesFolderPath = path.join(cacheFolderPath, "images");
 const cacheThumbnailsFolderPath = path.join(cacheFolderPath, "thumbnails");
 
 export function createCacheFolders() {
-  if (!fs.existsSync(cacheFolderPath)) {
-    fs.mkdirSync(cacheFolderPath);
-  }
+  const foldersToCreate = [
+    cacheFolderPath,
+    cacheImagesFolderPath,
+    cacheThumbnailsFolderPath,
+  ];
 
-  if (!fs.existsSync(cacheImagesFolderPath)) {
-    fs.mkdirSync(cacheImagesFolderPath);
-  }
-
-  if (!fs.existsSync(cacheThumbnailsFolderPath)) {
-    fs.mkdirSync(cacheThumbnailsFolderPath);
-  }
+  foldersToCreate.forEach((folderPath) => {
+    if (!fs.existsSync(folderPath)) {
+      fs.mkdirSync(folderPath);
+    }
+  });
 }
 
 export async function saveProfilePicture(
@@ -33,7 +35,9 @@ export async function saveProfilePicture(
   try {
     await sharp(pictureBuffer).resize(100, 100).toFile(thumbnailFilePath);
 
-    console.log("Successfully saved profile picture and thumbnail.");
+    console.log(
+      `Successfully saved profile picture and thumbnail for user with ID ${userId}`
+    );
 
     fs.writeFileSync(originalFilePath, pictureBuffer);
   } catch (error) {
@@ -61,7 +65,7 @@ export function serveCachedImage(imageType: string, userId: string, res: any) {
   const filePath = path.join(cacheFolderPath, fileName);
 
   if (fs.existsSync(filePath)) {
-    const maxAgeInSeconds = 1800;
+    const maxAgeInSeconds = config.maxAgeInSeconds;
     res.setHeader("Cache-Control", `public, max-age=${maxAgeInSeconds}`);
 
     res.sendFile(filePath);
