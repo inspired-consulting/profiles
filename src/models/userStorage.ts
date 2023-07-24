@@ -1,8 +1,6 @@
 import { User } from "./user.js";
 import fetch from "node-fetch";
 import { saveProfilePicture } from "../utils.js";
-import fs from "fs";
-import path from "path";
 
 export class UserStorage {
   static users: User[] = [];
