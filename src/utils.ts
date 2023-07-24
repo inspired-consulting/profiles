@@ -41,3 +41,31 @@ export async function saveProfilePicture(
     fs.writeFileSync(originalFilePath, pictureBuffer);
   }
 }
+
+export function serveCachedImage(imageType: string, userId: string, res: any) {
+  const cacheFolderPath =
+    imageType === "images" ? cacheImagesFolderPath : cacheThumbnailsFolderPath;
+
+  const fileName =
+    imageType === "images"
+      ? `${userId}.jpeg`
+      : imageType === "thumbnails"
+      ? `${userId}.jpeg`
+      : null;
+
+  if (!fileName) {
+    // Invalid imageType, send a 404 response
+    return res.sendStatus(404);
+  }
+
+  const filePath = path.join(cacheFolderPath, fileName);
+
+  if (fs.existsSync(filePath)) {
+    const maxAgeInSeconds = 1800;
+    res.setHeader("Cache-Control", `public, max-age=${maxAgeInSeconds}`);
+
+    res.sendFile(filePath);
+  } else {
+    res.sendStatus(404);
+  }
+}

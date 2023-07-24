@@ -17,7 +17,16 @@
     <main>
         <h2>Profile</h2>
         <form action="/profile" method="get">
-          <img id="profile-picture" src="/cache/thumbnails/<%= authenticatedUser.userId %>_thumbnail.jpeg" alt="">
+          <img
+            id="profile-picture"
+            src="/cache/images/<%= authenticatedUser.userId %>.jpeg?time=<%= cacheBuster %>"
+            alt=""
+          />
+          <img
+            id="thumbnail-picture"
+            src="/cache/thumbnails/<%= authenticatedUser.userId %>_thumbnail.jpeg?time=<%= cacheBuster %>"
+            alt=""
+          />
           <section id="profile-data">
             <p>User ID: <%= authenticatedUser.userId %></p>
             <p>Email: <%= authenticatedUser.mail %></p>
