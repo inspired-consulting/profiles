@@ -35,16 +35,9 @@ router.get("/profile", (req, res) => {
     res.render("profile", { authenticatedUser });
   }
 });
-router.get("/images/:userId", (req, res) => {
+router.get("cache/images/:userId", (req, res) => {
   const userId = req.params.userId;
-  const filePath = path.join(
-    __dirname,
-    "..",
-    "..",
-    "cache",
-    "images",
-    `${userId}.jpeg`
-  );
+  const filePath = path.join(__dirname, "..", "..", "images", `${userId}.jpeg`);
 
   if (fs.existsSync(filePath)) {
     const cacheBuster = Date.now();
