@@ -47,10 +47,10 @@ router.get("/images/:userId", (req, res) => {
   );
 
   if (fs.existsSync(filePath)) {
+    const cacheBuster = Date.now();
     const maxAgeInSeconds = 1800;
     res.setHeader("Cache-Control", `public, max-age=${maxAgeInSeconds}`);
-
-    res.sendFile(filePath);
+    res.redirect(`/images/${userId}.jpeg?time=${cacheBuster}`);
   } else {
     res.sendStatus(404);
   }
