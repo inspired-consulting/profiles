@@ -1,10 +1,15 @@
 import fs from "fs";
 import path from "path";
 import sharp from "sharp";
-
-import config from "../config.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
+const configPath: string = process.env.CONFIG_PATH || "";
+const configContent = fs.readFileSync(configPath, "utf-8");
+const config = JSON.parse(configContent);
+
 const cacheFolderPath = path.join(__dirname, "..", "cache");
 const cacheImagesFolderPath = path.join(cacheFolderPath, "images");
 const cacheThumbnailsFolderPath = path.join(cacheFolderPath, "thumbnails");

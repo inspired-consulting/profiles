@@ -13,3 +13,5 @@ pg-migrate.json
 # cache folder
 /cache/
 
+# config
+config.json
