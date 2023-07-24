@@ -36,16 +36,26 @@ router.get("/profile", (req, res) => {
   }
 });
 router.get("cache/images/:userId", (req, res) => {
-  const userId = req.params.userId;
-  const filePath = path.join(__dirname, "..", "..", "images", `${userId}.jpeg`);
-
-  if (fs.existsSync(filePath)) {
-    const cacheBuster = Date.now();
-    const maxAgeInSeconds = 1800;
-    res.setHeader("Cache-Control", `public, max-age=${maxAgeInSeconds}`);
-    res.redirect(`/images/${userId}.jpeg?time=${cacheBuster}`);
+  if (!req.isAuthenticated()) {
+    res.redirect("/");
   } else {
-    res.sendStatus(404);
+    const userId = req.params.userId;
+    const filePath = path.join(
+      __dirname,
+      "..",
+      "..",
+      "images",
+      `${userId}.jpeg`
+    );
+
+    if (fs.existsSync(filePath)) {
+      const cacheBuster = Date.now();
+      const maxAgeInSeconds = 1800;
+      res.setHeader("Cache-Control", `public, max-age=${maxAgeInSeconds}`);
+      res.redirect(`/images/${userId}.jpeg?time=${cacheBuster}`);
+    } else {
+      res.sendStatus(404);
+    }
   }
 });
 
