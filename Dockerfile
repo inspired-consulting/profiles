@@ -24,15 +24,13 @@ WORKDIR /home/node/app
 ENV NODE_ENV=production
 ENV NODE_PATH=./dist
 
-ENV CONFIG_PATH=./config.json
-
 COPY --from=build /home/node/app/package*.json ./
 COPY --from=build /home/node/app/dist ./dist
 COPY --from=build /home/node/app/public ./public
 COPY --from=build /home/node/app/views ./views
 COPY --from=build /home/node/app/db/migrations ./db/migrations
 COPY --from=build /home/node/app/knexfile.js ./
-COPY $CONFIG_PATH ./config.json
+COPY ./config.json ./config.json
 
 RUN npm ci --production
 
