@@ -1,5 +1,6 @@
 import { User } from "./user.js";
 import fetch from "node-fetch";
+import { saveProfilePicture } from "../utils.js";
 
 export class UserStorage {
   static users: User[] = [];
@@ -16,7 +17,7 @@ export class UserStorage {
     if (user) {
       done(null, user);
     } else {
-      const picture = await getProfilePicture(accessToken);
+      const picture = await getProfilePicture(id, accessToken);
       user = new User(id, displayName, mail)
         .withName(givenName, surname)
         .withAdminStatus(false)
@@ -28,8 +29,11 @@ export class UserStorage {
   }
 }
 
-export async function getProfilePicture(accessToken: string): Promise<string> {
-  console.log(`The access token: ${accessToken}`);
+export async function getProfilePicture(
+  userId: string,
+  accessToken: string
+): Promise<string> {
+  // console.log(`The access token: ${accessToken}`);
 
   if (accessToken) {
     try {
@@ -49,6 +53,8 @@ export async function getProfilePicture(accessToken: string): Promise<string> {
       if (arrayBuffer.byteLength === 0) {
         return "";
       }
+
+      saveProfilePicture(userId, Buffer.from(arrayBuffer));
 
       const buffer = Buffer.from(arrayBuffer);
 

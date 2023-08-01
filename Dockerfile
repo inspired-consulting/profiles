@@ -30,6 +30,7 @@ COPY --from=build /home/node/app/public ./public
 COPY --from=build /home/node/app/views ./views
 COPY --from=build /home/node/app/db/migrations ./db/migrations
 COPY --from=build /home/node/app/knexfile.js ./
+COPY ./config.json ./config.json
 
 RUN npm ci --production
 

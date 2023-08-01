@@ -9,3 +9,6 @@
 
 # database
 pg-migrate.json
+
+# cache folder
+/cache/
